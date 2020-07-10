@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block head %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+        socket.on('connect', () => {
+            button = document.getElementById('button')
+            button.onclick = () => {
+                console.log(document.getElementById('textbox').value);
+                newMessage = document.getElementById('textbox').value;
+                author = '{{ username }}';
+                channel = '{{ channelName }}'
+                socket.emit('new message', {'message': newMessage, 'author': author, 'channel':channel});
+            };
+        });
+        socket.on('messages updated', data => {
+            window.location.reload(true);
+        });
+    });
+    </script>
+{% endblock %}
+{% block title %}{{ channelName }}{% endblock %}
+
+
+{% block body %}
+    <h2>{{ channelName }}</h2>
+    {% for message in previous %}
+        <h4>{{ message }}</h4>
+    {% endfor %}
+    <input id='textbox' type='text'>
+    <input id='button' type='button' value='Send'>
+{% endblock %}

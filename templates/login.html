@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    {% if failed %}
+        <h4 style="color:red;">Username Taken or Password Incorrect</h4>
+    {% endif %}
+    <form action={{ url_for('login') }} method='post'>
+        <h4>Username</h4>
+        <input type='text' id='username' name='username' required='true'><br>
+        <h4>Password</h4>
+        <input type='password' id='password' name='password' required='true'><br><br>
+        <input type='submit' id='submit' name='submit'>
+    </form>
+{% endblock %}

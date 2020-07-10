@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block title %}Channel Creation{% endblock %}
+
+
+{% block body %}
+    {% if failed %}
+        <h4>Name taken</h4>
+    {% endif %}
+    <form action={{ url_for('createChannel') }} method='post'>
+        <input type='text' name='channelName' placeholder='Channel Name'>
+        <input type='submit' value='Submit'>
+    </form>
+{% endblock %}

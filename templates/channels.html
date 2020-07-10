@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block title %}ChannelList{% endblock %}
+
+
+{% block body %}
+    <a href={{ url_for('createChannel') }}>Create Channel</a>
+    <ul>
+    {% for channel in channelList %}
+        <li><a href={{ url_for('channel', channelName=channel) }}>{{ channel }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
